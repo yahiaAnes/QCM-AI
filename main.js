@@ -38,35 +38,38 @@ button.addEventListener("click", function() {
         // Resolve all promises when all page text content is processed
         Promise.all(promises).then(() => {
           extractedText = text; // Assign the extracted text to the variable
-          // Optionally, log the extracted text
-          // You can call another function here and use extractedText
-          // anotherFunction(extractedText);
-          async function ai(){
-            try{
-      
+        
+          async function ai() {
+            try {
+              // Ensure model.generateContent returns a Promise
               const prompt = 'Donnez-moi 10 questions à choix multiples (QCM) avec 5 propositions à ce cours,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
 
               const message = await model.generateContent(prompt);
-              const response = await message.response;
-              const text = response.text();
-              const paragraph = document.getElementById('paragraph');
-              animation.style.display='none';
-              paragraph.style.display= 'block'
-              let md_text = md().render(text);
-              paragraph.innerHTML = md_text;
-            }
-            catch(error){
+        
+              // Handle the response object from message.response
+              if (message.response) {
+                const response = await message.response;
+                const text = response.text();
+                const paragraph = document.getElementById('paragraph');
+                animation.style.display = 'none';
+                paragraph.style.display = 'block';
+                let md_text = md().render(text);
+                paragraph.innerHTML = md_text;
+              } else {
+                console.error("No response received from model.generateContent");
+              }
+            } catch (error) {
               console.log(error);
               const paragraph = document.getElementById('paragraph');
-              animation.style.display='none';
-              paragraph.style.display= 'block';
-              paragraph.innerHTML = "error has been occured, please try to click again!";
-      
-              
+              animation.style.display = 'none';
+              paragraph.style.display = 'block';
+              paragraph.innerHTML = "An error has occurred, please try again!";
             }
           }
-          ai()
+        
+          ai(); // Call the ai function after Promise.all resolves
         });
+        
       });
     };
     console.log(extractedText);
@@ -112,38 +115,40 @@ casClinique.addEventListener("click", function() {
             });
           }));
         }
-
+        
         // Resolve all promises when all page text content is processed
         Promise.all(promises).then(() => {
           extractedText = text; // Assign the extracted text to the variable
-          // Optionally, log the extracted text
-          // You can call another function here and use extractedText
-          // anotherFunction(extractedText);
-          async function ai(){
-            try{
-      
+        
+          async function ai() {
+            try {
+              // Ensure model.generateContent returns a Promise
               const prompt = 'Donnez-moi des cas cliniques à ce cours ,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
  
               const message = await model.generateContent(prompt);
-              const response = await message.response;
-              const text = response.text();
-              const paragraph = document.getElementById('paragraph');
-              animation.style.display='none';
-              paragraph.style.display= 'block'
-              let md_text = md().render(text);
-              paragraph.innerHTML = md_text;
-            }
-            catch(error){
+        
+              // Handle the response object from message.response
+              if (message.response) {
+                const response = await message.response;
+                const text = response.text();
+                const paragraph = document.getElementById('paragraph');
+                animation.style.display = 'none';
+                paragraph.style.display = 'block';
+                let md_text = md().render(text);
+                paragraph.innerHTML = md_text;
+              } else {
+                console.error("No response received from model.generateContent");
+              }
+            } catch (error) {
               console.log(error);
               const paragraph = document.getElementById('paragraph');
-              animation.style.display='none';
-              paragraph.style.display= 'block';
-              paragraph.innerHTML = "error has been occured, please try to click again!";
-      
-              
+              animation.style.display = 'none';
+              paragraph.style.display = 'block';
+              paragraph.innerHTML = "An error has occurred, please try again!";
             }
           }
-          ai()
+        
+          ai(); // Call the ai function after Promise.all resolves
         });
       });
     };
