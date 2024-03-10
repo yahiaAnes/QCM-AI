@@ -48,7 +48,7 @@ button.addEventListener("click", function() {
     async function ai(){
       try{
 
-        const prompt = 'donne moi des qcm avec les reponse a ce cour '+ extractedText;
+        const prompt = 'Donnez-moi des questions à choix multiples avec des réponses à cette leçon '+ extractedText;
         const message = await model.generateContent(prompt);
         const response = await message.response;
         const text = response.text();
