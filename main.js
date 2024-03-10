@@ -44,7 +44,7 @@ button.addEventListener("click", function() {
           async function ai(){
             try{
       
-              const prompt = 'Donnez-moi 10 questions à choix multiples (QCM) à ce cours,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
+              const prompt = 'Donnez-moi 10 questions à choix multiples (QCM) avec 5 propositions à ce cours,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
 
               const message = await model.generateContent(prompt);
               const response = await message.response;
@@ -56,6 +56,7 @@ button.addEventListener("click", function() {
               paragraph.innerHTML = md_text;
             }
             catch(error){
+              console.log(error);
               const paragraph = document.getElementById('paragraph');
               animation.style.display='none';
               paragraph.style.display= 'block';
@@ -133,6 +134,7 @@ casClinique.addEventListener("click", function() {
               paragraph.innerHTML = md_text;
             }
             catch(error){
+              console.log(error);
               const paragraph = document.getElementById('paragraph');
               animation.style.display='none';
               paragraph.style.display= 'block';
