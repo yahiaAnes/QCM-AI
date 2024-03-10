@@ -29,6 +29,7 @@ button.addEventListener("click", function() {
             return page.getTextContent().then(function(content) {
               content.items.forEach(function(item) {
                 text += item.str + ' ';
+                
               });
             });
           }));
@@ -40,34 +41,36 @@ button.addEventListener("click", function() {
           // Optionally, log the extracted text
           // You can call another function here and use extractedText
           // anotherFunction(extractedText);
+          async function ai(){
+            try{
+      
+              const prompt = 'Donnez-moi 10 questions à choix multiples (QCM) à ce cours,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
+
+              const message = await model.generateContent(prompt);
+              const response = await message.response;
+              const text = response.text();
+              const paragraph = document.getElementById('paragraph');
+              animation.style.display='none';
+              paragraph.style.display= 'block'
+              let md_text = md().render(text);
+              paragraph.innerHTML = md_text;
+            }
+            catch(error){
+              const paragraph = document.getElementById('paragraph');
+              animation.style.display='none';
+              paragraph.style.display= 'block';
+              paragraph.innerHTML = "error has been occured, please try to click again!";
+      
+              
+            }
+          }
+          ai()
         });
       });
     };
-
+    console.log(extractedText);
     reader.readAsArrayBuffer(file);
-    async function ai(){
-      try{
-
-        const prompt = 'Donnez-moi des questions à choix multiples avec des réponses à cette leçon '+ extractedText;
-        const message = await model.generateContent(prompt);
-        const response = await message.response;
-        const text = response.text();
-        const paragraph = document.getElementById('paragraph');
-        animation.style.display='none';
-        paragraph.style.display= 'block'
-        let md_text = md().render(text);
-        paragraph.innerHTML = md_text;
-      }
-      catch(error){
-        const paragraph = document.getElementById('paragraph');
-        animation.style.display='none';
-        paragraph.style.display= 'block';
-        paragraph.innerHTML = "error has been occured, please try to click again!";
-
-        
-      }
-    }
-    ai();
+    
     
 
   }else{
@@ -115,34 +118,36 @@ casClinique.addEventListener("click", function() {
           // Optionally, log the extracted text
           // You can call another function here and use extractedText
           // anotherFunction(extractedText);
+          async function ai(){
+            try{
+      
+              const prompt = 'Donnez-moi des cas cliniques à ce cours ,mettre le titre du cours au début  ,Je veux que vous fassiez beaucoup de bonnes réponses pour la même question , mettre les reponses juste a la fin, le cours est "  '+ extractedText + '".';
+ 
+              const message = await model.generateContent(prompt);
+              const response = await message.response;
+              const text = response.text();
+              const paragraph = document.getElementById('paragraph');
+              animation.style.display='none';
+              paragraph.style.display= 'block'
+              let md_text = md().render(text);
+              paragraph.innerHTML = md_text;
+            }
+            catch(error){
+              const paragraph = document.getElementById('paragraph');
+              animation.style.display='none';
+              paragraph.style.display= 'block';
+              paragraph.innerHTML = "error has been occured, please try to click again!";
+      
+              
+            }
+          }
+          ai()
         });
       });
     };
 
     reader.readAsArrayBuffer(file);
-    async function ai(){
-      try{
-
-        const prompt = 'Donnez-moi des cas cliniques avec des réponses détaillés à ce cour '+ extractedText;
-        const message = await model.generateContent(prompt);
-        const response = await message.response;
-        const text = response.text();
-        const paragraph = document.getElementById('paragraph');
-        animation.style.display='none';
-        paragraph.style.display= 'block'
-        let md_text = md().render(text);
-        paragraph.innerHTML = md_text;
-      }
-      catch(error){
-        const paragraph = document.getElementById('paragraph');
-        animation.style.display='none';
-        paragraph.style.display= 'block';
-        paragraph.innerHTML = "error has been occured, please try to click again!";
-
-        
-      }
-    }
-    ai();
+   
     
 
   }else{
